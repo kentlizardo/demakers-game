@@ -2,15 +2,19 @@ extends Node
 
 signal staging_finished(stage: Node)
 
+@onready var main_root: Node = $/root/Root
+
 var starting_stage: PackedScene
 
 var _stage: Node = null
 var stage: Node:
-	get = get_current_stage
-func get_current_stage() -> Node:
-	return _stage
+	get:
+		return _stage
 
-var is_staging: bool = false
+var _is_staging: bool = false
+var is_staging: bool:
+	get:
+		return _is_staging
 
 func _ready() -> void:
 	if starting_stage:
