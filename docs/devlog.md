@@ -1,6 +1,6 @@
 # Day 1 2024-17-01
 
-Decided to scaffold a completely new project for Demaker's. I've already tried to make this game multiple times before. Once with GDScript. Then switched to C#, waited a couple months, recreated that project in C#. Now I've finally decided to use GDscript. My reasons for doing so is because I've found that all of my game jams in C# and projects so far have had a lot slower development time than the GDScript projects. Going to paste a pros/cons list from the trello into here. I also just have headaches trying to understand OOP + dependence and inheritance trees.
+Decided to scaffold a completely new project for Demaker's. I've already tried to make this game multiple times before. Once with GDScript. Then switched to C#, waited a couple months, recreated that project in C#. What a mess. I've finally decided to use GDscript and going to try to stubbornly stick with that. My reasons for doing so is because I've found that all of my game jams in C# and projects so far have had a _lot_ slower development time than the GDScript projects. Mostly having headaches trying to understand OOP + dependence and inheritance trees while trying to mix that into a Godot Node-based workflow. Going to paste a pros/cons list from the trello into here.
 
 ## C#
 
