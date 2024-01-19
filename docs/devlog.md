@@ -1,4 +1,4 @@
-# Day 1 2024-17-01
+# Day 1 2024-01-17
 
 Decided to scaffold a completely new project for Demaker's. I've already tried to make this game multiple times before. Once with GDScript. Then switched to C#, waited a couple months, recreated that project in C#. What a mess. I've finally decided to use GDscript and going to try to stubbornly stick with that. My reasons for doing so is because I've found that all of my game jams in C# and projects so far have had a _lot_ slower development time than the GDScript projects. Mostly having headaches trying to understand OOP + dependence and inheritance trees while trying to mix that into a Godot Node-based workflow. Going to paste a pros/cons list from the trello into here.
 
@@ -47,3 +47,7 @@ I would switch to a C# project/binary if the following was implemented however.
 https://github.com/godotengine/godot-proposals/issues/7895
 
 For now, I'm going to try to recreate functionality up to the 3rd version, which is the basic App structure with game loading and an _very basic_ environment/location system(just print statements.)
+
+# Day 2 2024-01-18
+
+I wasn't able to get much done besides adding editor icons and configuring Git LFS to handle svgs due to classwork.

@@ -28,5 +28,6 @@ gdscript/warnings/untyped_declaration=2
 folder_colors={
 "res://alpha/": "yellow",
 "res://assets/": "green",
+"res://editor/": "gray",
 "res://scenes/": "red"
 }
