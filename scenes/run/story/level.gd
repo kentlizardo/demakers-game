@@ -35,6 +35,18 @@ func _create_level_index(node: Node) -> Array[Location]:
 	return loc_index.filter(filter)
 
 func _enter(sandbox: Sandbox) -> void:
+	const TestLocMenu := preload("res://dev/test_location_menu.gd")
 	var level_index := _create_level_index(self)
-	for i in level_index:
-		print(i.name)
+	var menu := load("res://dev/test_location_menu.tscn").instantiate() as TestLocMenu
+	var nav := {}
+	for i in get_sub_locations():
+		nav[i.name as String] = i
+	var nav_keys: Array[String]
+	nav_keys.assign(nav.keys())
+	menu.populate(nav_keys)
+	menu.choice_picked.connect(func(key: String) -> void:
+		Run.current.stage(nav[key])
+		)
+	sandbox.add_child(menu)
+	sandbox.completed.connect(func() -> void: Run.current.stage(self.get_parent()))
+	

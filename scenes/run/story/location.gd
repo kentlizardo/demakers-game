@@ -23,3 +23,8 @@ func build() -> bool:
 func enter(sandbox: Sandbox) -> void:
 	build()
 	_enter(sandbox)
+
+func get_sub_locations() -> Array[Location]:
+	var locs: Array[Location]
+	locs.assign(get_children().filter(func(n: Node) -> bool: return n is Location))
+	return locs
