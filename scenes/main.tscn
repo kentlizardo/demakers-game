@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxus8oa1fjdgb"]
+
+[ext_resource type="Script" path="res://scenes/game/game.gd" id="1_vmw1k"]
+[ext_resource type="Script" path="res://scenes/run/run.gd" id="2_0qm2t"]
+[ext_resource type="Script" path="res://scenes/sandbox/sandbox.gd" id="3_cnad2"]
+[ext_resource type="Script" path="res://scenes/run/story/location.gd" id="4_3uraq"]
+[ext_resource type="Script" path="res://scenes/run/story/act.gd" id="5_7ppfp"]
+[ext_resource type="Script" path="res://scenes/run/story/level.gd" id="6_ars4f"]
+
+[node name="Root" type="Node"]
+
+[node name="Game" type="Node" parent="." node_paths=PackedStringArray("run")]
+script = ExtResource("1_vmw1k")
+run = NodePath("Run")
+
+[node name="Run" type="Node" parent="Game" node_paths=PackedStringArray("initial_location", "level_instance")]
+script = ExtResource("2_0qm2t")
+initial_location = NodePath("Story/Act/Level")
+level_instance = NodePath("Sandbox")
+
+[node name="Story" type="Node" parent="Game/Run"]
+
+[node name="Act" type="Node" parent="Game/Run/Story"]
+script = ExtResource("5_7ppfp")
+
+[node name="Level" type="Node" parent="Game/Run/Story/Act"]
+script = ExtResource("6_ars4f")
+
+[node name="Location" type="Node" parent="Game/Run/Story"]
+script = ExtResource("4_3uraq")
+
+[node name="Sandbox" type="Node" parent="Game/Run"]
+script = ExtResource("3_cnad2")
