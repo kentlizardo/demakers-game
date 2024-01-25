@@ -29,4 +29,5 @@ func _enter(sandbox: Sandbox) -> void:
 		loc.populate_level(sandbox)
 
 func populate_level(sandbox: Sandbox) -> void:
-	sandbox.add_child(level_template.instantiate())
+	if level_template:
+		sandbox.add_child(level_template.instantiate())

@@ -41,3 +41,8 @@ func stage(frontier: Location) -> void:
 	_create_sandbox()
 	_location = frontier
 	frontier.enter(sandbox_instance)
+	if frontier is Level:
+		on_stage_level()
+
+func on_stage_level() -> void:
+	pass

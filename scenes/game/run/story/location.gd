@@ -28,7 +28,8 @@ func build() -> bool:
 func enter(sandbox: Sandbox) -> void:
 	build()
 	_enter(sandbox)
-	_test_loc_autostep(sandbox)
+	if !(self is Level):
+		_test_loc_autostep(sandbox)
 
 func _test_loc(sandbox: Sandbox) -> void:
 	const TestLocMenu := preload("res://dev/test_location_menu.gd")
