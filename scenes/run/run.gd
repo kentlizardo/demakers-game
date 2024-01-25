@@ -4,15 +4,15 @@ static var current: Run
 
 @export var initial_location: Location
 
-var level_instance: Sandbox:
+var sandbox_instance: Sandbox:
 	set(x):
-		if is_instance_valid(level_instance):
-			level_instance.completed.disconnect(_on_level_completed)
-			level_instance.failed.disconnect(_on_level_failed)
-		level_instance = x
-		if is_instance_valid(level_instance):
-			level_instance.completed.connect(_on_level_completed)
-			level_instance.failed.connect(_on_level_failed)
+		if is_instance_valid(sandbox_instance):
+			sandbox_instance.completed.disconnect(_on_level_completed)
+			sandbox_instance.failed.disconnect(_on_level_failed)
+		sandbox_instance = x
+		if is_instance_valid(sandbox_instance):
+			sandbox_instance.completed.connect(_on_level_completed)
+			sandbox_instance.failed.connect(_on_level_failed)
 
 var _location: Location
 var location: Location:
@@ -31,15 +31,13 @@ func _on_level_failed() -> void:
 	pass
 
 func _create_sandbox() -> void:
-	if level_instance:
-		level_instance.queue_free()
-	level_instance = Sandbox.new()
-	call_deferred("add_child", level_instance)
+	if sandbox_instance:
+		sandbox_instance.queue_free()
+	sandbox_instance = Sandbox.new()
+	call_deferred("add_child", sandbox_instance)
 
 func stage(frontier: Location) -> void:
 	print("moving to " + frontier.name)
-	if level_instance:
-		level_instance.queue_free()
 	_create_sandbox()
 	_location = frontier
-	frontier.enter(level_instance)
+	frontier.enter(sandbox_instance)

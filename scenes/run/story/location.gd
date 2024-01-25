@@ -12,6 +12,12 @@ func _build() -> void:
 func _enter(sandbox: Sandbox) -> void:
 	Debug.abstr_func(self)
 
+## Used to affect any sublocations that are Levels when they are generated.
+## Only the leaf 
+func _populate_level(sandbox: Sandbox) -> Array[Object]:
+	Debug.abstr_func(self)
+	return []
+
 func build() -> bool:
 	if is_built:
 		_build()
