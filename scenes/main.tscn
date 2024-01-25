@@ -1,40 +1,42 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxus8oa1fjdgb"]
+[gd_scene load_steps=7 format=3 uid="uid://dxus8oa1fjdgb"]
 
-[ext_resource type="Script" path="res://scenes/game/game.gd" id="1_vmw1k"]
+[ext_resource type="Script" path="res://scenes/save/save.gd" id="1_vmw1k"]
 [ext_resource type="Script" path="res://scenes/run/run.gd" id="2_0qm2t"]
+[ext_resource type="Script" path="res://scenes/run/story/story.gd" id="3_vu0lw"]
 [ext_resource type="Script" path="res://scenes/run/story/location.gd" id="4_3uraq"]
 [ext_resource type="Script" path="res://scenes/run/story/act.gd" id="5_7ppfp"]
 [ext_resource type="Script" path="res://scenes/run/story/level.gd" id="6_ars4f"]
 
 [node name="Root" type="Node"]
 
-[node name="Game" type="Node" parent="." node_paths=PackedStringArray("run")]
+[node name="Save" type="Node" parent="." node_paths=PackedStringArray("run")]
 script = ExtResource("1_vmw1k")
 run = NodePath("Run")
 
-[node name="Run" type="Node" parent="Game" node_paths=PackedStringArray("initial_location")]
+[node name="Run" type="Node" parent="Save" node_paths=PackedStringArray("initial_location")]
 script = ExtResource("2_0qm2t")
-initial_location = NodePath("Story/Act/Level")
+initial_location = NodePath("Story")
 
-[node name="Story" type="Node" parent="Game/Run"]
+[node name="Story" type="Node" parent="Save/Run"]
+script = ExtResource("3_vu0lw")
 
-[node name="Act" type="Node" parent="Game/Run/Story"]
+[node name="Act" type="Node" parent="Save/Run/Story"]
 script = ExtResource("5_7ppfp")
 
-[node name="Level" type="Node" parent="Game/Run/Story/Act"]
+[node name="Level" type="Node" parent="Save/Run/Story/Act"]
 script = ExtResource("6_ars4f")
 
-[node name="Level2" type="Node" parent="Game/Run/Story/Act/Level"]
+[node name="Level2" type="Node" parent="Save/Run/Story/Act/Level"]
 script = ExtResource("6_ars4f")
 
-[node name="Level3" type="Node" parent="Game/Run/Story/Act/Level"]
+[node name="Level3" type="Node" parent="Save/Run/Story/Act/Level"]
 script = ExtResource("6_ars4f")
 
-[node name="Level4" type="Node" parent="Game/Run/Story/Act/Level"]
+[node name="Level4" type="Node" parent="Save/Run/Story/Act/Level"]
 script = ExtResource("6_ars4f")
 
-[node name="Level5" type="Node" parent="Game/Run/Story/Act/Level"]
+[node name="Level5" type="Node" parent="Save/Run/Story/Act/Level"]
 script = ExtResource("6_ars4f")
 
-[node name="Location" type="Node" parent="Game/Run/Story"]
+[node name="Location" type="Node" parent="Save/Run/Story"]
 script = ExtResource("4_3uraq")

@@ -1,6 +1,6 @@
-class_name Game extends Node
+class_name Save extends Node
 
-static var current: Game
+static var current: Save
 
 @export var run: Run
 

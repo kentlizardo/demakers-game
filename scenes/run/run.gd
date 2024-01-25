@@ -37,6 +37,7 @@ func _create_sandbox() -> void:
 	call_deferred("add_child", level_instance)
 
 func stage(frontier: Location) -> void:
+	print("moving to " + frontier.name)
 	if level_instance:
 		level_instance.queue_free()
 	_create_sandbox()
