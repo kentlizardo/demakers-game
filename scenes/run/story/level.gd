@@ -1,16 +1,13 @@
 class_name Level extends Location
 
-## Retrieves all locations from root to this node.
 static func _index(node: Node) -> Array[Location]:
 	if !node:
 		return []
 	if node is Location:
 		var loc: Location = node
-		return _index(node.get_parent()) + [loc]
+		return _index(node.get_parent()) + ([loc] as Array[Location])
 	return _index(node.get_parent())
 
-## This function creates an index of all Superlocations
-## While keeping only the frontier Level
 static func _create_level_index(level_frontier: Level) -> Array[Location]:
 	var loc_index := _index(level_frontier)
 	var filter := func(loc: Location) -> bool:
@@ -29,4 +26,7 @@ func _build() -> void:
 func _enter(sandbox: Sandbox) -> void:
 	var level_index := Level._create_level_index(self)
 	for loc: Location in level_index:
-		loc._populate_level() # Why is autocomplete not working here?
+		loc.populate_level(sandbox)
+
+func populate_level(sandbox: Sandbox) -> void:
+	sandbox.add_child(level_template.instantiate())

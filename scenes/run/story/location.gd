@@ -13,10 +13,10 @@ func _enter(sandbox: Sandbox) -> void:
 	Debug.abstr_func(self)
 
 ## Used to affect any sublocations that are Levels when they are generated.
-## Only the leaf 
-func _populate_level(sandbox: Sandbox) -> Array[Object]:
+## Only the frontier level's populate will be called.
+## Returns an array of generators: Objects with .generate(sandbox: Sandbox)
+func populate_level(sandbox: Sandbox) -> void:
 	Debug.abstr_func(self)
-	return []
 
 func build() -> bool:
 	if is_built:
@@ -52,6 +52,9 @@ func _test_loc_autostep(sandbox: Sandbox) -> void:
 	sandbox.add_child(menu)
 	if get_sub_locations().size() > 0:
 		if !curr_loc:
+			# TODO: Instead of placing a closure here that sets any null curr_loc to the first child
+			# In case of wanting to return to the same location,
+			# Should probably just set curr_loc in build()
 			print("No current location, setting it to first child.")
 			curr_loc = get_sub_locations()[0]
 		else:
