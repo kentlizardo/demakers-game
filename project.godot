@@ -25,7 +25,7 @@ gdscript/warnings/untyped_declaration=2
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 
 [file_customization]
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/game/player/ui/cabinet/screen.gd" id="1_lvwnn"]
 [ext_resource type="Script" path="res://scenes/game/player/ui/cabinet/remote_camera.gd" id="2_dkh7m"]
 
-[node name="Screen" type="Control" node_paths=PackedStringArray("resolution_container")]
+[node name="Screen" type="Control" node_paths=PackedStringArray("resolution_container", "camera")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_lvwnn")
 resolution_container = NodePath("Resolution")
+camera = NodePath("Resolution/ViewportContainer/SubViewport/RemoteCamera")
 
 [node name="Resolution" type="Control" parent="."]
 layout_mode = 1
@@ -21,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ViewportContainer" type="SubViewportContainer" parent="Resolution"]
 layout_mode = 1

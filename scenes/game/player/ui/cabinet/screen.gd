@@ -1,5 +1,7 @@
 class_name Screen extends Control
 
+const RemoteCamera := preload("res://scenes/game/player/ui/cabinet/remote_camera.gd")
+
 static func get_global_scale(node: Node) -> Vector2:
 		if !node:
 			return Vector2.ONE
@@ -11,6 +13,7 @@ static func get_global_scale(node: Node) -> Vector2:
 		return outer
 
 @export var resolution_container: Control
+@export var camera: RemoteCamera
 
 var scale_factor := 1.0:
 	set(x):
@@ -25,6 +28,8 @@ var is_dirty: bool
 
 func _ready() -> void:
 	is_dirty = true
+	_visibility_changed()
+	visibility_changed.connect(_visibility_changed)
 
 func _process(delta: float) -> void:
 	if is_dirty:
@@ -32,6 +37,9 @@ func _process(delta: float) -> void:
 		resolution_container.scale = Vector2(1.0 / total_scale.x, 1.0 / total_scale.y)
 		resolution_container.size = size * total_scale
 		is_dirty = false
+
+func _visibility_changed() -> void:
+	camera.visible = visible
 
 func match_window_resolution() -> void:
 	pixel_scale = get_global_scale(get_parent())
