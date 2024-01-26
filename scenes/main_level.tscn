@@ -47,7 +47,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_6dskv")
 
-[node name="ConsoleView" type="Control" parent="MainPlayerBind/MainPlayerView/Cabinet" node_paths=PackedStringArray("console_sprite")]
+[node name="ConsoleView" type="Control" parent="MainPlayerBind/MainPlayerView/Cabinet" node_paths=PackedStringArray("console_sprite", "target_region")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,6 +57,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_s2rbl")
 console_sprite = NodePath("ConsoleSprite")
+target_region = NodePath("TargetScreen")
 
 [node name="ConsoleSprite" type="Node2D" parent="MainPlayerBind/MainPlayerView/Cabinet/ConsoleView" node_paths=PackedStringArray("min_view_region", "screen")]
 script = ExtResource("3_ubstd")

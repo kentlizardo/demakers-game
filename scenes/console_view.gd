@@ -10,6 +10,9 @@ func _ready() -> void:
 	_on_resize()
 
 func _on_resize() -> void:
+	resize_sprite_and_screen.call_deferred()
+
+func resize_sprite_and_screen() -> void:
 	if RESIZE_MIN_VIEW_TO_TARGET:
 		if !target_region:
 			console_sprite.resize_min_view_to_viewport()

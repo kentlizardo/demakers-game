@@ -23,10 +23,6 @@ App="*res://scenes/auto/app.gd"
 
 gdscript/warnings/untyped_declaration=2
 
-[display]
-
-window/stretch/mode="viewport"
-
 [file_customization]
 
 folder_colors={
@@ -36,6 +32,10 @@ folder_colors={
 "res://packs/": "yellow",
 "res://scenes/": "purple"
 }
+
+[gui]
+
+common/snap_controls_to_pixels=false
 
 [importer_defaults]
 

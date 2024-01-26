@@ -41,5 +41,8 @@ func _process(delta: float) -> void:
 func _visibility_changed() -> void:
 	camera.visible = visible
 
+# TODO: Instead of matching pixel scale for the consolesprite's min_view_region
+# Scale the pixel scale so that the pixel scale is preserved no matter the target area
+
 func match_window_resolution() -> void:
-	pixel_scale = get_global_scale(get_parent())
+	pixel_scale = get_global_scale(self)
