@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://de15s0303xtvp"]
+[gd_scene load_steps=6 format=3 uid="uid://de15s0303xtvp"]
 
 [ext_resource type="Script" path="res://scenes/game/main_player_body.gd" id="1_1m488"]
 [ext_resource type="Texture2D" uid="uid://c4ksrhjcybqgf" path="res://assets/textures/zero.png" id="2_fanfy"]
+[ext_resource type="PackedScene" uid="uid://duusryp3ertns" path="res://scenes/game/player/ui/cabinet/screen.tscn" id="2_xaup0"]
 [ext_resource type="Script" path="res://scenes/game/player/ui/cabinet/console_sprite.gd" id="3_ubstd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qchby"]
@@ -15,12 +16,7 @@ size = Vector3(14.7428, 0.0751953, 13.4789)
 
 [node name="PlayerBind" type="Node" parent="."]
 
-[node name="MainPlayerBody" type="CharacterBody3D" parent="PlayerBind" node_paths=PackedStringArray("camera_pivot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-script = ExtResource("1_1m488")
-camera_pivot = NodePath("MainCameraPivot")
-
-[node name="Cabinet" type="Control" parent="PlayerBind/MainPlayerBody"]
+[node name="Cabinet" type="Control" parent="PlayerBind"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,32 +25,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Screen" type="SubViewportContainer" parent="PlayerBind/MainPlayerBody/Cabinet"]
+[node name="Screen" parent="PlayerBind/Cabinet" instance=ExtResource("2_xaup0")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="PlayerBind/MainPlayerBody/Cabinet/Screen"]
-handle_input_locally = false
-size = Vector2i(1152, 648)
-render_target_update_mode = 4
-
-[node name="Camera3D" type="Camera3D" parent="PlayerBind/MainPlayerBody/Cabinet/Screen/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="ConsoleSprite" type="Node2D" parent="PlayerBind/MainPlayerBody/Cabinet" node_paths=PackedStringArray("min_view_region")]
+[node name="ConsoleSprite" type="Node2D" parent="PlayerBind/Cabinet" node_paths=PackedStringArray("min_view_region")]
 script = ExtResource("3_ubstd")
 min_view_region = NodePath("MinView")
 
-[node name="ConsoleSprite" type="Sprite2D" parent="PlayerBind/MainPlayerBody/Cabinet/ConsoleSprite"]
-scale = Vector2(4, 4)
-texture = ExtResource("2_fanfy")
-
-[node name="MinView" type="Control" parent="PlayerBind/MainPlayerBody/Cabinet/ConsoleSprite"]
+[node name="MinView" type="Control" parent="PlayerBind/Cabinet/ConsoleSprite"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -69,10 +47,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="ConsoleSprite" type="Sprite2D" parent="PlayerBind/Cabinet/ConsoleSprite"]
+scale = Vector2(4, 4)
+texture = ExtResource("2_fanfy")
+
+[node name="MainPlayerBody" type="CharacterBody3D" parent="PlayerBind" node_paths=PackedStringArray("camera_pivot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("1_1m488")
+camera_pivot = NodePath("MainCameraPivot")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerBind/MainPlayerBody"]
 shape = SubResource("CapsuleShape3D_qchby")
 
 [node name="MainCameraPivot" type="Node3D" parent="PlayerBind/MainPlayerBody"]
-
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="PlayerBind/MainPlayerBody/MainCameraPivot"]
-remote_path = NodePath("../../Cabinet/Screen/SubViewport/Camera3D")

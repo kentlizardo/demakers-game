@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://duusryp3ertns"]
+
+[ext_resource type="Script" path="res://scenes/game/player/ui/cabinet/screen.gd" id="1_lvwnn"]
+[ext_resource type="Script" path="res://scenes/game/player/ui/cabinet/remote_camera.gd" id="2_dkh7m"]
+
+[node name="Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_lvwnn")
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="RemoteCamera" type="Camera3D" parent="ViewportContainer/SubViewport"]
+process_priority = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("2_dkh7m")

@@ -1,11 +1,16 @@
-extends CharacterBody3D
+class_name MainPlayerBody extends CharacterBody3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+static var instance: MainPlayerBody
+
 @export var camera_pivot: Node3D
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+func _init() -> void:
+	instance = self
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
