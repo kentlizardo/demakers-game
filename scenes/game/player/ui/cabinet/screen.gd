@@ -15,7 +15,7 @@ static func get_global_scale(node: Node) -> Vector2:
 @export var resolution_container: Control
 @export var camera: RemoteCamera
 
-var scale_factor := 1.0:
+var scale_factor := 0.25:
 	set(x):
 		scale_factor = x
 		is_dirty = true
@@ -28,8 +28,6 @@ var is_dirty: bool
 
 func _ready() -> void:
 	is_dirty = true
-	_visibility_changed()
-	visibility_changed.connect(_visibility_changed)
 
 func _process(delta: float) -> void:
 	if is_dirty:
@@ -37,9 +35,6 @@ func _process(delta: float) -> void:
 		resolution_container.scale = Vector2(1.0 / total_scale.x, 1.0 / total_scale.y)
 		resolution_container.size = size * total_scale
 		is_dirty = false
-
-func _visibility_changed() -> void:
-	camera.visible = visible
 
 # TODO: Instead of matching pixel scale for the consolesprite's min_view_region
 # Scale the pixel scale so that the pixel scale is preserved no matter the target area
