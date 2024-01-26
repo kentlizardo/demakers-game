@@ -14,9 +14,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.447449, -0.462402, -0.0213
 use_collision = true
 size = Vector3(14.7428, 0.0751953, 13.4789)
 
-[node name="PlayerBind" type="Node" parent="."]
+[node name="MainPlayerBind" type="Node" parent="."]
 
-[node name="Cabinet" type="Control" parent="PlayerBind"]
+[node name="Cabinet" type="Control" parent="MainPlayerBind"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,14 +25,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Screen" parent="PlayerBind/Cabinet" instance=ExtResource("2_xaup0")]
+[node name="Screen" parent="MainPlayerBind/Cabinet" instance=ExtResource("2_xaup0")]
 layout_mode = 1
 
-[node name="ConsoleSprite" type="Node2D" parent="PlayerBind/Cabinet" node_paths=PackedStringArray("min_view_region")]
+[node name="ConsoleSprite" type="Node2D" parent="MainPlayerBind/Cabinet" node_paths=PackedStringArray("min_view_region")]
 script = ExtResource("3_ubstd")
 min_view_region = NodePath("MinView")
 
-[node name="MinView" type="Control" parent="PlayerBind/Cabinet/ConsoleSprite"]
+[node name="MinView" type="Control" parent="MainPlayerBind/Cabinet/ConsoleSprite"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -47,16 +47,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ConsoleSprite" type="Sprite2D" parent="PlayerBind/Cabinet/ConsoleSprite"]
+[node name="ConsoleSprite" type="Sprite2D" parent="MainPlayerBind/Cabinet/ConsoleSprite"]
 scale = Vector2(4, 4)
 texture = ExtResource("2_fanfy")
 
-[node name="MainPlayerBody" type="CharacterBody3D" parent="PlayerBind" node_paths=PackedStringArray("camera_pivot")]
+[node name="MainPlayerBody" type="CharacterBody3D" parent="MainPlayerBind" node_paths=PackedStringArray("camera_pivot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 script = ExtResource("1_1m488")
 camera_pivot = NodePath("MainCameraPivot")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerBind/MainPlayerBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainPlayerBind/MainPlayerBody"]
 shape = SubResource("CapsuleShape3D_qchby")
 
-[node name="MainCameraPivot" type="Node3D" parent="PlayerBind/MainPlayerBody"]
+[node name="MainCameraPivot" type="Node3D" parent="MainPlayerBind/MainPlayerBody"]
