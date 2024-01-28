@@ -1,6 +1,6 @@
 class_name CombatEntity extends Node
 
-var modules: Array[Module] = []
+@export var modules: Array[Module] = []
 
 func add_module(mod: Module) -> void:
 	modules.push_back(mod)

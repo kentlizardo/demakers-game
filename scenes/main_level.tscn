@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://de15s0303xtvp"]
+[gd_scene load_steps=11 format=3 uid="uid://de15s0303xtvp"]
 
 [ext_resource type="Script" path="res://scenes/game/main_player_body.gd" id="1_1m488"]
 [ext_resource type="Script" path="res://scenes/game/player/main_player_bind.gd" id="1_vs0wa"]
@@ -6,6 +6,20 @@
 [ext_resource type="Script" path="res://scenes/game/player/combat/player_loadout.gd" id="2_q2hih"]
 [ext_resource type="Script" path="res://scenes/game/combat/combat_entity.gd" id="3_wlum5"]
 [ext_resource type="PackedScene" uid="uid://bv1700p8ux00t" path="res://packs/demo/consoles/zero_sprite.tscn" id="6_lwnbq"]
+
+[sub_resource type="Resource" id="Resource_3wxgc"]
+script = ExtResource("2_q2hih")
+console_sprite = ExtResource("6_lwnbq")
+modules = Array[Resource("res://scenes/game/combat/module.gd")]([])
+
+[sub_resource type="Resource" id="Resource_xdijn"]
+script = ExtResource("2_q2hih")
+console_sprite = ExtResource("6_lwnbq")
+modules = Array[Resource("res://scenes/game/combat/module.gd")]([])
+
+[sub_resource type="Resource" id="Resource_61uek"]
+script = ExtResource("2_q2hih")
+modules = Array[Resource("res://scenes/game/combat/module.gd")]([])
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qchby"]
 
@@ -16,13 +30,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.447449, -0.462402, -0.0213
 use_collision = true
 size = Vector3(14.7428, 0.0751953, 13.4789)
 
-[node name="MainPlayerBind" type="Node" parent="." node_paths=PackedStringArray("combat_entity")]
+[node name="MainPlayerBind" type="Node" parent="." node_paths=PackedStringArray("combat_entity", "cabinet")]
 script = ExtResource("1_vs0wa")
 combat_entity = NodePath("PlayerCE")
-
-[node name="PlayerLoadout" type="Node" parent="MainPlayerBind"]
-script = ExtResource("2_q2hih")
-console_sprite = ExtResource("6_lwnbq")
+cabinet = NodePath("MainPlayerView/Cabinet")
+initial_loadouts = Array[ExtResource("2_q2hih")]([SubResource("Resource_3wxgc"), SubResource("Resource_xdijn"), SubResource("Resource_61uek")])
 
 [node name="PlayerCE" type="Node" parent="MainPlayerBind"]
 script = ExtResource("3_wlum5")

@@ -15,6 +15,7 @@ var _console_sprite: ConsoleSprite
 var _screen: Screen
 
 func _init(console_sprite_template: PackedScene) -> void:
+	_screen = SCREEN_PACKED.instantiate() as Screen
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	self.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if console_sprite_template:
@@ -22,7 +23,6 @@ func _init(console_sprite_template: PackedScene) -> void:
 		add_child(_console_sprite)
 
 func _ready() -> void:
-	_screen = SCREEN_PACKED.instantiate() as Screen
 	if _console_sprite:
 		_console_sprite.min_view_region.add_child(_screen)
 	else:
