@@ -4,8 +4,10 @@ const SCREEN_PACKED := preload("res://scenes/game/player/ui/cabinet/screen.tscn"
 const DEFAULT_SETTINGS := {
 	"RESIZE_MIN_VIEW_TO_TARGET": true
 }
+const WEAPON_CULL_LAYERS := [19, 20]
 
 static var settings := DEFAULT_SETTINGS
+static var current_weapon_cull : int = WEAPON_CULL_LAYERS[0]
 
 signal view_created
 
@@ -15,7 +17,12 @@ var _console_sprite: ConsoleSprite
 var _screen: Screen
 
 func _init(console_sprite_template: PackedScene) -> void:
+	_next_weapon_cull()
 	_screen = SCREEN_PACKED.instantiate() as Screen
+	#for i: int in WEAPON_CULL_LAYERS:
+		#_screen.camera.set_cull_mask_value(i, false)
+	#_screen.camera.set_cull_mask_value(ConsoleView.current_weapon_cull, true)
+	#
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	self.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if console_sprite_template:
@@ -38,6 +45,14 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	pivot_offset = size / 2
+
+func _next_weapon_cull() -> void:
+	var curr_cull_index := WEAPON_CULL_LAYERS.find(current_weapon_cull)
+	var next_cull_index := curr_cull_index + 1
+	if next_cull_index > WEAPON_CULL_LAYERS.size() - 1:
+		next_cull_index = 0
+	current_weapon_cull = WEAPON_CULL_LAYERS[next_cull_index]
+	print("next weapon " + str(current_weapon_cull))
 
 func _on_resize() -> void:
 	resize_sprite_and_screen.call_deferred()
