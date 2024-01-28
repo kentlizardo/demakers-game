@@ -19,10 +19,10 @@ var _screen: Screen
 func _init(console_sprite_template: PackedScene) -> void:
 	_next_weapon_cull()
 	_screen = SCREEN_PACKED.instantiate() as Screen
-	#for i: int in WEAPON_CULL_LAYERS:
-		#_screen.camera.set_cull_mask_value(i, false)
-	#_screen.camera.set_cull_mask_value(ConsoleView.current_weapon_cull, true)
-	#
+	for i: int in WEAPON_CULL_LAYERS:
+		_screen.camera.set_cull_mask_value(i, false)
+	_screen.camera.set_cull_mask_value(ConsoleView.current_weapon_cull, true)
+	
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	self.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if console_sprite_template:
@@ -36,10 +36,11 @@ func _ready() -> void:
 		add_child(_screen)
 	
 	resized.connect(_on_resize)
-	_on_resize()
+	resize_sprite_and_screen()
 	
 	var tw := create_tween()
-	tw.tween_property(self, "scale", Vector2.ONE, 1.0).from(Vector2.ONE * 0.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+	tw.tween_property(self, "modulate:a", 1.0, 0.5).from(0.0).set_ease(Tween.EASE_IN_OUT)
+	tw.parallel().tween_property(self, "scale", Vector2.ONE, 1.0).from(Vector2.ONE * 0.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 	await tw.finished
 	view_created.emit()
 

@@ -56,14 +56,14 @@ body = NodePath("MainPlayerBody")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 0)
 script = ExtResource("1_1m488")
 camera_pivot = NodePath("MainCameraPivot")
-weapon_pivot = NodePath("WeaponPivot")
+weapon_pivot = NodePath("MainCameraPivot/WeaponPivot")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MainPlayerBind/PlayerCE/MainPlayerBody"]
 shape = SubResource("CapsuleShape3D_qchby")
 
 [node name="MainCameraPivot" type="Node3D" parent="MainPlayerBind/PlayerCE/MainPlayerBody"]
 
-[node name="WeaponPivot" type="Node3D" parent="MainPlayerBind/PlayerCE/MainPlayerBody"]
+[node name="WeaponPivot" type="Node3D" parent="MainPlayerBind/PlayerCE/MainPlayerBody/MainCameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
 [node name="MainPlayerView" type="Control" parent="MainPlayerBind"]
