@@ -15,3 +15,9 @@ func _process(delta: float) -> void:
 	if MainPlayerBind.instance:
 		if MainPlayerBind.instance.body:
 			self.global_transform = MainPlayerBind.instance.body.weapon_pivot.global_transform
+
+func delete(new_view: ConsoleView) -> void:
+	if new_view:
+		if !new_view.is_queued_for_deletion():
+			await new_view.view_created
+	queue_free()

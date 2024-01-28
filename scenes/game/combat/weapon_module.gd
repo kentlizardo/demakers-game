@@ -12,4 +12,4 @@ func _on_bind(ent: CombatEntity) -> void:
 func _pre_unbind(ent: CombatEntity) -> void:
 	if ent is PlayerCombatEntity:
 		var data := get_bind_data(ent)
-		data["weapon"].queue_free()
+		(data["weapon"] as PlayerWeapon).delete(MainPlayerBind.instance.cabinet_view.console_view)
