@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/game/main_player_body.gd" id="1_1m488"]
 [ext_resource type="Script" path="res://scenes/game/player/main_player_bind.gd" id="1_vs0wa"]
-[ext_resource type="Script" path="res://scenes/game/player/ui/cabinet/cabinet.gd" id="2_6dskv"]
 [ext_resource type="Script" path="res://scenes/game/player/combat/player_loadout.gd" id="2_q2hih"]
 [ext_resource type="Script" path="res://scenes/game/combat/combat_entity.gd" id="3_wlum5"]
+[ext_resource type="Script" path="res://scenes/game/player/ui/cabinet/cabinet_view.gd" id="6_equsf"]
 [ext_resource type="PackedScene" uid="uid://bv1700p8ux00t" path="res://packs/demo/consoles/zero_sprite.tscn" id="6_lwnbq"]
 
 [sub_resource type="Resource" id="Resource_3wxgc"]
@@ -30,10 +30,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.447449, -0.462402, -0.0213
 use_collision = true
 size = Vector3(14.7428, 0.0751953, 13.4789)
 
-[node name="MainPlayerBind" type="Node" parent="." node_paths=PackedStringArray("combat_entity", "cabinet")]
+[node name="MainPlayerBind" type="Node" parent="." node_paths=PackedStringArray("combat_entity", "cabinet_view")]
 script = ExtResource("1_vs0wa")
 combat_entity = NodePath("PlayerCE")
-cabinet = NodePath("MainPlayerView/Cabinet")
+cabinet_view = NodePath("MainPlayerView/CabinetView")
 initial_loadouts = Array[ExtResource("2_q2hih")]([SubResource("Resource_3wxgc"), SubResource("Resource_xdijn"), SubResource("Resource_61uek")])
 
 [node name="PlayerCE" type="Node" parent="MainPlayerBind"]
@@ -69,7 +69,7 @@ mouse_filter = 2
 border_color = Color(1, 1, 1, 1)
 border_width = 2.0
 
-[node name="Cabinet" type="Control" parent="MainPlayerBind/MainPlayerView" node_paths=PackedStringArray("target_region")]
+[node name="CabinetView" type="Control" parent="MainPlayerBind/MainPlayerView" node_paths=PackedStringArray("target_region")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,7 +77,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("2_6dskv")
+script = ExtResource("6_equsf")
 target_region = NodePath("../TargetScreen")
 
 [node name="TestEntity" type="Node" parent="."]
