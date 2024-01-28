@@ -29,6 +29,9 @@ func _ready() -> void:
 	cabinet.loadout_changed.connect(_on_loadout_changed)
 	for i_loadout in initial_loadouts:
 		cabinet.add_loadout(i_loadout)
+	await get_tree().process_frame
+	for i_loadout in initial_loadouts:
+		cabinet.remove_loadout(i_loadout)
 
 func _unhandled_input(event: InputEvent) -> void:
 	for key: String in HOTSWAP_ACTIONS_TO_INDICES.keys():
@@ -38,4 +41,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 
 func _on_loadout_changed(loadout: PlayerLoadout) -> void:
-	cabinet_view.create_view(loadout.console_template)
+	if loadout:
+		cabinet_view.create_view(loadout.console_template)
+	else:
+		cabinet_view.create_view(null)

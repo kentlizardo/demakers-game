@@ -40,10 +40,11 @@ initial_loadouts = Array[ExtResource("2_q2hih")]([SubResource("Resource_3wxgc"),
 [node name="PlayerCE" type="Node" parent="MainPlayerBind"]
 script = ExtResource("3_wlum5")
 
-[node name="MainPlayerBody" type="CharacterBody3D" parent="MainPlayerBind/PlayerCE" node_paths=PackedStringArray("camera_pivot")]
+[node name="MainPlayerBody" type="CharacterBody3D" parent="MainPlayerBind/PlayerCE" node_paths=PackedStringArray("camera_pivot", "weapon_pivot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 0)
 script = ExtResource("1_1m488")
 camera_pivot = NodePath("MainCameraPivot")
+weapon_pivot = NodePath("WeaponPivot")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MainPlayerBind/PlayerCE/MainPlayerBody"]
 shape = SubResource("CapsuleShape3D_qchby")

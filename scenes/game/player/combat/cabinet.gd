@@ -16,7 +16,7 @@ func add_loadout(loadout: PlayerLoadout) -> void:
 func remove_loadout(loadout: PlayerLoadout) -> void:
 	var i := _loadouts.find(loadout)
 	assert(i != -1, "PlayerLoadout not found in _loadouts")
-	_loadouts.push_back(loadout)
+	_loadouts.remove_at(i)
 	_loadouts_changed()
 
 func try_hotswap(index: int) -> bool:
@@ -26,10 +26,12 @@ func try_hotswap(index: int) -> bool:
 	return false
 
 func _loadouts_changed() -> void:
-	if loadout:
-		if !_loadouts.has(loadout):
-			loadout = null
-	else:
+	var next_loadout := loadout
+	if next_loadout:
+		if !_loadouts.has(next_loadout):
+			next_loadout = null
+	if !next_loadout:
 		for i in _loadouts:
-			loadout = i
+			next_loadout = i
+	loadout = next_loadout
 
