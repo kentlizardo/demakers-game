@@ -1,21 +1,32 @@
-[gd_scene load_steps=11 format=3 uid="uid://de15s0303xtvp"]
+[gd_scene load_steps=16 format=3 uid="uid://de15s0303xtvp"]
 
 [ext_resource type="Script" path="res://scenes/game/main_player_body.gd" id="1_1m488"]
 [ext_resource type="Script" path="res://scenes/game/player/main_player_bind.gd" id="1_vs0wa"]
 [ext_resource type="Script" path="res://scenes/game/player/combat/player_loadout.gd" id="2_q2hih"]
-[ext_resource type="Script" path="res://scenes/game/combat/combat_entity.gd" id="3_wlum5"]
+[ext_resource type="Script" path="res://scenes/game/combat/weapon_module.gd" id="3_u5816"]
+[ext_resource type="PackedScene" uid="uid://c2iomocmpvak2" path="res://packs/demo/consoles/zero_weapon.tscn" id="4_4ldym"]
+[ext_resource type="PackedScene" uid="uid://o734qpui6bbi" path="res://packs/demo/consoles/test_weapon.tscn" id="5_jxg6g"]
 [ext_resource type="Script" path="res://scenes/game/player/ui/cabinet/cabinet_view.gd" id="6_equsf"]
 [ext_resource type="PackedScene" uid="uid://bv1700p8ux00t" path="res://packs/demo/consoles/zero_sprite.tscn" id="6_lwnbq"]
+[ext_resource type="Script" path="res://scenes/game/player/combat/player_combat_entity.gd" id="6_r25b7"]
+
+[sub_resource type="Resource" id="Resource_h7kf0"]
+script = ExtResource("3_u5816")
+weapon_template = ExtResource("4_4ldym")
 
 [sub_resource type="Resource" id="Resource_3wxgc"]
 script = ExtResource("2_q2hih")
 console_template = ExtResource("6_lwnbq")
-modules = Array[Resource("res://scenes/game/combat/module.gd")]([])
+modules = Array[Resource("res://scenes/game/combat/module.gd")]([SubResource("Resource_h7kf0")])
+
+[sub_resource type="Resource" id="Resource_pi1sg"]
+script = ExtResource("3_u5816")
+weapon_template = ExtResource("5_jxg6g")
 
 [sub_resource type="Resource" id="Resource_xdijn"]
 script = ExtResource("2_q2hih")
 console_template = ExtResource("6_lwnbq")
-modules = Array[Resource("res://scenes/game/combat/module.gd")]([])
+modules = Array[Resource("res://scenes/game/combat/module.gd")]([SubResource("Resource_pi1sg")])
 
 [sub_resource type="Resource" id="Resource_61uek"]
 script = ExtResource("2_q2hih")
@@ -37,8 +48,9 @@ combat_entity = NodePath("PlayerCE")
 cabinet_view = NodePath("MainPlayerView/CabinetView")
 initial_loadouts = Array[ExtResource("2_q2hih")]([SubResource("Resource_3wxgc"), SubResource("Resource_xdijn"), SubResource("Resource_61uek")])
 
-[node name="PlayerCE" type="Node" parent="MainPlayerBind"]
-script = ExtResource("3_wlum5")
+[node name="PlayerCE" type="Node" parent="MainPlayerBind" node_paths=PackedStringArray("body")]
+script = ExtResource("6_r25b7")
+body = NodePath("MainPlayerBody")
 
 [node name="MainPlayerBody" type="CharacterBody3D" parent="MainPlayerBind/PlayerCE" node_paths=PackedStringArray("camera_pivot", "weapon_pivot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 0)

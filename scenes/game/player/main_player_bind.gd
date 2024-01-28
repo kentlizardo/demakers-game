@@ -16,7 +16,7 @@ const HOTSWAP_ACTIONS_TO_INDICES := {
 static var instance: MainPlayerBind
 
 @export var body: MainPlayerBody
-@export var combat_entity: CombatEntity
+@export var combat_entity: PlayerCombatEntity
 @export var cabinet_view: CabinetView
 @export var initial_loadouts: Array[PlayerLoadout] = []
 
@@ -29,9 +29,6 @@ func _ready() -> void:
 	cabinet.loadout_changed.connect(_on_loadout_changed)
 	for i_loadout in initial_loadouts:
 		cabinet.add_loadout(i_loadout)
-	await get_tree().process_frame
-	for i_loadout in initial_loadouts:
-		cabinet.remove_loadout(i_loadout)
 
 func _unhandled_input(event: InputEvent) -> void:
 	for key: String in HOTSWAP_ACTIONS_TO_INDICES.keys():
@@ -45,3 +42,4 @@ func _on_loadout_changed(loadout: PlayerLoadout) -> void:
 		cabinet_view.create_view(loadout.console_template)
 	else:
 		cabinet_view.create_view(null)
+	combat_entity.set_loadout(loadout)

@@ -1,5 +1,7 @@
 class_name PlayerCombatEntity extends CombatEntity
 
+@export var body: MainPlayerBody
+
 var _loadout: PlayerLoadout
 
 func set_loadout(loadout: PlayerLoadout) -> void:

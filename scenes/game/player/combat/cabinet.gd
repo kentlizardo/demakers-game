@@ -34,4 +34,3 @@ func _loadouts_changed() -> void:
 		for i in _loadouts:
 			next_loadout = i
 	loadout = next_loadout
-

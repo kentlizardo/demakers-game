@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://o734qpui6bbi"]
+
+[ext_resource type="Script" path="res://scenes/game/player/combat/player_weapon.gd" id="1_n5g1s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1x55v"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="TestWeapo" type="Node3D" node_paths=PackedStringArray("visual")]
+script = ExtResource("1_n5g1s")
+visual = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_1x55v")

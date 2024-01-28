@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2iomocmpvak2"]
+
+[ext_resource type="Script" path="res://scenes/game/player/combat/player_weapon.gd" id="1_06nge"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_1b2gi"]
+inner_radius = 0.25
+outer_radius = 0.5
+rings = 16
+ring_segments = 4
+
+[node name="ZeroWeapon" type="Node3D" node_paths=PackedStringArray("visual")]
+script = ExtResource("1_06nge")
+visual = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_1b2gi")
