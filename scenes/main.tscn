@@ -15,7 +15,7 @@ run = NodePath("Run")
 
 [node name="Run" type="Node" parent="Save" node_paths=PackedStringArray("initial_location")]
 script = ExtResource("2_0qm2t")
-initial_location = NodePath("Story/Act/Level")
+initial_location = NodePath("Story")
 
 [node name="Story" type="Node" parent="Save/Run"]
 script = ExtResource("3_vu0lw")

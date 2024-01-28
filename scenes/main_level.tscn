@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://de15s0303xtvp"]
 
 [ext_resource type="Script" path="res://scenes/game/main_player_body.gd" id="1_1m488"]
+[ext_resource type="Script" path="res://scenes/game/player/main_player_bind.gd" id="1_vs0wa"]
 [ext_resource type="Script" path="res://scenes/game/player/ui/cabinet/cabinet.gd" id="2_6dskv"]
-[ext_resource type="Texture2D" uid="uid://c4ksrhjcybqgf" path="res://assets/textures/zero.png" id="2_fanfy"]
-[ext_resource type="Script" path="res://scenes/game/player/ui/cabinet/console_sprite.gd" id="3_ubstd"]
-[ext_resource type="Script" path="res://scenes/console_view.gd" id="4_s2rbl"]
-[ext_resource type="PackedScene" uid="uid://duusryp3ertns" path="res://scenes/game/player/ui/cabinet/screen.tscn" id="5_dupud"]
+[ext_resource type="Script" path="res://scenes/game/player/combat/player_loadout.gd" id="2_q2hih"]
+[ext_resource type="Script" path="res://scenes/game/combat/combat_entity.gd" id="3_wlum5"]
+[ext_resource type="PackedScene" uid="uid://bv1700p8ux00t" path="res://packs/demo/consoles/zero_sprite.tscn" id="6_lwnbq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qchby"]
 
@@ -17,16 +17,24 @@ use_collision = true
 size = Vector3(14.7428, 0.0751953, 13.4789)
 
 [node name="MainPlayerBind" type="Node" parent="."]
+script = ExtResource("1_vs0wa")
 
-[node name="MainPlayerBody" type="CharacterBody3D" parent="MainPlayerBind" node_paths=PackedStringArray("camera_pivot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+[node name="PlayerLoadout" type="Node" parent="MainPlayerBind"]
+script = ExtResource("2_q2hih")
+console_sprite = ExtResource("6_lwnbq")
+
+[node name="PlayerCE" type="Node" parent="MainPlayerBind"]
+script = ExtResource("3_wlum5")
+
+[node name="MainPlayerBody" type="CharacterBody3D" parent="MainPlayerBind/PlayerCE" node_paths=PackedStringArray("camera_pivot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 0)
 script = ExtResource("1_1m488")
 camera_pivot = NodePath("MainCameraPivot")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MainPlayerBind/MainPlayerBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainPlayerBind/PlayerCE/MainPlayerBody"]
 shape = SubResource("CapsuleShape3D_qchby")
 
-[node name="MainCameraPivot" type="Node3D" parent="MainPlayerBind/MainPlayerBody"]
+[node name="MainCameraPivot" type="Node3D" parent="MainPlayerBind/PlayerCE/MainPlayerBody"]
 
 [node name="MainPlayerView" type="Control" parent="MainPlayerBind"]
 layout_mode = 3
@@ -37,58 +45,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Cabinet" type="Control" parent="MainPlayerBind/MainPlayerView"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("2_6dskv")
-
-[node name="ConsoleView" type="Control" parent="MainPlayerBind/MainPlayerView/Cabinet" node_paths=PackedStringArray("console_sprite", "target_region")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("4_s2rbl")
-console_sprite = NodePath("ConsoleSprite")
-target_region = NodePath("TargetScreen")
-
-[node name="ConsoleSprite" type="Node2D" parent="MainPlayerBind/MainPlayerView/Cabinet/ConsoleView" node_paths=PackedStringArray("min_view_region", "screen")]
-script = ExtResource("3_ubstd")
-min_view_region = NodePath("MinView")
-screen = NodePath("MinView/Screen")
-
-[node name="MinView" type="Control" parent="MainPlayerBind/MainPlayerView/Cabinet/ConsoleView/ConsoleSprite"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -84.0
-offset_right = 100.0
-offset_bottom = 68.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Screen" parent="MainPlayerBind/MainPlayerView/Cabinet/ConsoleView/ConsoleSprite/MinView" node_paths=PackedStringArray("resolution_container", "camera") instance=ExtResource("5_dupud")]
-layout_mode = 1
-resolution_container = NodePath("Resolution")
-camera = NodePath("Resolution/ViewportContainer/SubViewport/RemoteCamera")
-
-[node name="ConsoleSprite" type="Sprite2D" parent="MainPlayerBind/MainPlayerView/Cabinet/ConsoleView/ConsoleSprite"]
-scale = Vector2(4, 4)
-texture = ExtResource("2_fanfy")
-
-[node name="TargetScreen" type="ReferenceRect" parent="MainPlayerBind/MainPlayerView/Cabinet/ConsoleView"]
+[node name="TargetScreen" type="ReferenceRect" parent="MainPlayerBind/MainPlayerView"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -98,3 +55,16 @@ grow_vertical = 2
 mouse_filter = 2
 border_color = Color(1, 1, 1, 1)
 border_width = 2.0
+
+[node name="Cabinet" type="Control" parent="MainPlayerBind/MainPlayerView" node_paths=PackedStringArray("target_region")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_6dskv")
+target_region = NodePath("../TargetScreen")
+
+[node name="TestEntity" type="Node" parent="."]

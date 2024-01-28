@@ -1,7 +1,6 @@
 class_name ConsoleSprite extends Node2D
 
 @export var min_view_region: Control
-@export var screen: Screen
 
 func resize_min_view_to_target(target: Control) -> void:	
 	var min_size := min_view_region.size
