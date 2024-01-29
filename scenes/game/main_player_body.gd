@@ -1,5 +1,10 @@
 class_name MainPlayerBody extends CharacterBody3D
 
+const BASE_PROPERTIES = {
+	"speed": 5.0,
+	"jump_velocity": 4.5,
+}
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 

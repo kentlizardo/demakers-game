@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://0bse6qeqluuo"]
+
+[ext_resource type="Script" path="res://scenes/game/player/main_player_bind.gd" id="1_g2ajs"]
+[ext_resource type="PackedScene" uid="uid://bv1700p8ux00t" path="res://packs/demo/consoles/zero_sprite.tscn" id="2_wravx"]
+[ext_resource type="Script" path="res://scenes/game/player/combat/player_loadout.gd" id="3_856pc"]
+[ext_resource type="Script" path="res://scenes/game/player/combat/player_combat_entity.gd" id="4_56sor"]
+[ext_resource type="Script" path="res://scenes/game/main_player_body.gd" id="5_dr863"]
+[ext_resource type="Script" path="res://scenes/game/player/ui/cabinet/cabinet_view.gd" id="6_fhtr5"]
+
+[sub_resource type="Resource" id="Resource_3wxgc"]
+script = ExtResource("3_856pc")
+console_template = ExtResource("2_wravx")
+modules = Array[Resource("res://scenes/game/combat/module.gd")]([])
+
+[sub_resource type="Resource" id="Resource_xdijn"]
+script = ExtResource("3_856pc")
+console_template = ExtResource("2_wravx")
+modules = Array[Resource("res://scenes/game/combat/module.gd")]([])
+
+[sub_resource type="Resource" id="Resource_61uek"]
+script = ExtResource("3_856pc")
+modules = Array[Resource("res://scenes/game/combat/module.gd")]([])
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qchby"]
+
+[node name="MainPlayerBind" type="Node" node_paths=PackedStringArray("body", "combat_entity", "cabinet_view")]
+script = ExtResource("1_g2ajs")
+body = NodePath("PlayerCE/MainPlayerBody")
+combat_entity = NodePath("PlayerCE")
+cabinet_view = NodePath("MainPlayerView/CabinetView")
+initial_loadouts = Array[ExtResource("3_856pc")]([SubResource("Resource_3wxgc"), SubResource("Resource_xdijn"), SubResource("Resource_61uek")])
+
+[node name="PlayerCE" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("4_56sor")
+body = NodePath("MainPlayerBody")
+
+[node name="MainPlayerBody" type="CharacterBody3D" parent="PlayerCE" node_paths=PackedStringArray("camera_pivot", "weapon_pivot")]
+script = ExtResource("5_dr863")
+camera_pivot = NodePath("MainCameraPivot")
+weapon_pivot = NodePath("MainCameraPivot/WeaponPivot")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCE/MainPlayerBody"]
+shape = SubResource("CapsuleShape3D_qchby")
+
+[node name="MainCameraPivot" type="Node3D" parent="PlayerCE/MainPlayerBody"]
+
+[node name="WeaponPivot" type="Node3D" parent="PlayerCE/MainPlayerBody/MainCameraPivot"]
+
+[node name="MainPlayerView" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TargetScreen" type="ReferenceRect" parent="MainPlayerView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_color = Color(1, 1, 1, 1)
+border_width = 2.0
+
+[node name="CabinetView" type="Control" parent="MainPlayerView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_fhtr5")

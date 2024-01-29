@@ -34,7 +34,7 @@ func _create_sandbox() -> void:
 	if sandbox_instance:
 		sandbox_instance.queue_free()
 	sandbox_instance = Sandbox.new()
-	call_deferred("add_child", sandbox_instance)
+	add_child(sandbox_instance)
 
 func stage(frontier: Location) -> void:
 	print("moving to " + frontier.name)
@@ -44,5 +44,9 @@ func stage(frontier: Location) -> void:
 	if frontier is Level:
 		on_stage_level()
 
+const MAIN_PLAYER_BIND := preload("res://scenes/game/player/main_player_bind.tscn")
 func on_stage_level() -> void:
-	pass
+	var main_player := MAIN_PLAYER_BIND.instantiate() as MainPlayerBind
+	sandbox_instance.add_child(main_player)
+	var spawn := sandbox_instance.get_children()[0].find_child("Spawnpoint")
+	main_player.body.global_position = spawn.global_position

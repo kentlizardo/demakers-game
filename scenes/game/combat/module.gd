@@ -17,7 +17,6 @@ func get_bind_data(ent: CombatEntity) -> Dictionary:
 	assert(_bind_data.has(ent))
 	return _bind_data[ent]
 
-
 func bind(ent: CombatEntity) -> void:
 	if _pre_bind(ent):
 		_add_bind_data(ent)

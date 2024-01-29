@@ -1,4 +1,4 @@
-class_name MainPlayerBind extends Node
+class_name MainPlayerBind extends PlayerBind
 
 const HOTSWAP_ACTIONS_TO_INDICES := {
 	"hotswap_1": 0,
@@ -26,6 +26,7 @@ func _init() -> void:
 	instance = self
 
 func _ready() -> void:
+	super()
 	cabinet.loadout_changed.connect(_on_loadout_changed)
 	for i_loadout in initial_loadouts:
 		cabinet.add_loadout(i_loadout)
