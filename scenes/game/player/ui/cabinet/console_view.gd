@@ -12,6 +12,7 @@ static var current_weapon_cull : int = WEAPON_CULL_LAYERS[0]
 signal view_created
 
 var target_region: Control
+var view_creating := true
 
 var _console_sprite: ConsoleSprite
 var _screen: Screen
@@ -37,12 +38,17 @@ func _ready() -> void:
 	
 	resized.connect(_on_resize)
 	resize_sprite_and_screen()
-	
-	var tw := create_tween()
-	tw.tween_property(self, "modulate:a", 1.0, 0.5).from(0.0).set_ease(Tween.EASE_IN_OUT)
-	tw.parallel().tween_property(self, "scale", Vector2.ONE, 1.0).from(Vector2.ONE * 0.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
-	await tw.finished
+	if _console_sprite:
+		var tw := create_tween()
+		tw.tween_property(self, "modulate:a", 1.0, 0.5).from(0.0).set_ease(Tween.EASE_IN_OUT)
+		tw.parallel().tween_property(self, "scale", Vector2.ONE, 1.0).from(Vector2.ONE * 0.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+		await tw.finished
+	else:
+		var tw := create_tween()
+		tw.tween_property(self, "modulate:a", 1.0, 0.5).from(0.0).set_ease(Tween.EASE_IN_OUT)
+		await tw.finished
 	view_created.emit()
+	view_creating = false
 
 func _process(delta: float) -> void:
 	pivot_offset = size / 2
@@ -76,6 +82,9 @@ func resize_sprite_and_screen() -> void:
 
 func delete_once_view_created(view: ConsoleView) -> void:
 	if view:
-		if !view.is_queued_for_deletion():
+		if view.view_creating:
 			await view.view_created
+	# prevents premature deletion causing extra views
+	if view_creating:
+		view_created.emit()
 	queue_free()
