@@ -27,6 +27,7 @@ var pixel_scale := Vector2.ONE:
 var is_dirty: bool
 
 func _ready() -> void:
+	match_window_resolution()
 	is_dirty = true
 
 func _process(delta: float) -> void:

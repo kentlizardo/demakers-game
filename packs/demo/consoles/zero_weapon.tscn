@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2iomocmpvak2"]
+[gd_scene load_steps=5 format=3 uid="uid://c2iomocmpvak2"]
 
 [ext_resource type="Script" path="res://scenes/game/player/combat/player_weapon.gd" id="1_06nge"]
+[ext_resource type="Shader" path="res://assets/shaders/imposterizer.gdshader" id="2_ok8f6"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_1b2gi"]
 inner_radius = 0.25
@@ -8,9 +9,20 @@ outer_radius = 0.5
 rings = 16
 ring_segments = 4
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t4jjy"]
+render_priority = 0
+shader = ExtResource("2_ok8f6")
+shader_parameter/cam_offset = Vector3(0, 0, 1)
+
 [node name="ZeroWeapon" type="Node3D" node_paths=PackedStringArray("visual")]
 script = ExtResource("1_06nge")
 visual = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.794987, 0.606627, 0, -0.606627, 0.794987, 0, 0, 0)
 mesh = SubResource("TorusMesh_1b2gi")
+surface_material_override/0 = SubResource("ShaderMaterial_t4jjy")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.186862, 0.509846, -0.058538)
+omni_range = 0.5
