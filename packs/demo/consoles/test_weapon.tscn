@@ -6,6 +6,7 @@
 size = Vector3(0.2, 0.2, 0.2)
 
 [node name="TestWeapo" type="Node3D" node_paths=PackedStringArray("visual")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 script = ExtResource("1_n5g1s")
 visual = NodePath("MeshInstance3D")
 

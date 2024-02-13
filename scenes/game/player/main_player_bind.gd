@@ -15,21 +15,18 @@ const HOTSWAP_ACTIONS_TO_INDICES := {
 
 static var instance: MainPlayerBind
 
+@export var inventory: PlayerInventory
 @export var body: MainPlayerBody
 @export var combat_entity: PlayerCombatEntity
 @export var cabinet_view: CabinetView
-@export var initial_loadouts: Array[PlayerLoadout] = []
 
-var cabinet: Cabinet = Cabinet.new()
+var cabinet: Cabinet
 
 func _init() -> void:
 	instance = self
 
 func _ready() -> void:
-	super()
-	cabinet.loadout_changed.connect(_on_loadout_changed)
-	for i_loadout in initial_loadouts:
-		cabinet.add_loadout(i_loadout)
+	cabinet = Cabinet.new(inventory.loadouts, cabinet_view, self)
 
 func _unhandled_input(event: InputEvent) -> void:
 	for key: String in HOTSWAP_ACTIONS_TO_INDICES.keys():
@@ -37,10 +34,3 @@ func _unhandled_input(event: InputEvent) -> void:
 			var index := HOTSWAP_ACTIONS_TO_INDICES[key] as int
 			if cabinet.try_hotswap(index):
 				get_viewport().set_input_as_handled()
-
-func _on_loadout_changed(loadout: PlayerLoadout) -> void:
-	if loadout:
-		cabinet_view.create_view(loadout.console_template)
-	else:
-		cabinet_view.create_view(null)
-	combat_entity.set_loadout(loadout)

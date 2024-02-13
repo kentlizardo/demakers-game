@@ -1,4 +1,4 @@
 class_name PlayerLoadout extends Resource
 
-@export var console_template: PackedScene
+@export var spec: ConsoleSpec
 @export var modules: Array[Module]
