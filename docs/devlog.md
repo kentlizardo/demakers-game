@@ -158,3 +158,45 @@ Going to try to find out how to get this to do the 4/8 direction billboard later
 
 Also wrote down a bunch of ideas for how the acts are going to work, plus more.
 I think I definitely overscoped but we'll see.
+# Day 11 2024-02-13
+Have been incredibly busy, due to working on actual job/career stuff.
+I finally figured out the right way to do the Cabinet system. I decided to just use RefCounteds as components for MainPlayerBind!
+
+Other sad news, I looked at a bunch of games my friends reviewed cause I asked for retro shooters!
+I feel like my game is a total ripoff of ULTRAKILL now... I've been writing notes and design drafts for how this game for more than a year now and I never really looked at it? I mostly took inspiration from games like Hades and Evoland, so I'm incredibly surprised and disappointed at how my ideas came to be so similar.  The idea of robot angels and ascending hell as a story made so much sense with ascending to fight the Demaker as a fallen archangel. Honestly I don't know what to do anymore. Hopefully I can find some way to make my game different?
+
+Also looked into managing my design notes in a different way, I drafted a weird little note-taking app design combining my haphazard note-taking methods of Discord messages + text channels and random Google docs. I really like markdown and plaintext notes so much more. Wondering if I can make a suite of apps that focus on portability with plaintext and VCS support, maybe one for Kanban workflows?
+
+TODO: Create 3 enemy types.
+## Faction System (Draft)
+I think to draft most enemy behaviours, one thing needs to be defined. How exactly should an Enemy react to other entities(Players, and Entities)?
+
+Since enemies all interact within the 3D space (not 2D yet until we implement the Warden enemy; although, this would probably be transforming 3D rendering to 2D instead.), I'm going to make the behavior system tightly coupled into the 3D engine with **PhysicsBody3D**s in groups.
+
+For factions, the node group name is going to be peppered with "fac_", incase we need to use groups for other things. I wish we could extend methods in GDScript so I can just do `enemy.get_faction_groups()` but we'll probably have to use a service/singleton.
+
+We're probably going to have to manually add "fac_" to every group name in a PhysicsBody3D. Maybe if something like group groups were implemented, or group categories. I really don't want to use Resources for this kind of thing.
+
+Actually, if we use Resources, we can establish Faction relation table resources. And instead have Resource store an underlying group_name. The issue with this is, we cannot extend the functionality of Node3D to have a Faction (Resource), unless we edit the engine code. Ugh, this would be one good use case for C# as GDExtension bindings.
+
+There's also metadata, but I really dislike using it in Godot because it introduces unneeded complexity/handling.
+
+I think the approach right now will be to use magic strings for group_names. I doubt this needs any more complexity than that. One issue that could come up is dynamically changing the relations between factions, but I think that can just be worked around with just switching the entities to a specialized faction. It's also doesn't seem like it's going to be a very common occurrence.
+
+I wonder how we're going to handle multiple factions.
+## Multiple Factions,
+Most likely can just +1/-1 to a discrete likeability score, with the likeability score being the main determining factor for behavior.
+## Upgrading
+I'd like to see this improved, with specific behaviors and trees of factions. Like, enemies from a certain act/setting, like for example, enemies from `underworld` would probably attack `benthic gravesite (sealife)` on sight, since the Leviathan destroyed their city. Also would probably attack `benthic gravesite (sealife) (deep sea)`
+Maybe have an individuality factor that determines whether a faction acts with herd mentality vs individual entity.
+Look into hierarchical FSMs?
+TODO: Look into upgrading faction system.
+TODO: Look into visualizing this with a generated 2 way table
+Wait. Why don't we just have a manually inputted 2 way table?
+	Probably multiplies into a lot of work, especially if we have derived faction groups.
+
+## Alternative Idea to Blending Animations
+The art style is supposed to be super retro, or at least reminiscent of it. I have an idea to implement simple stagger/interrupt animations an enemy without blendtrees. Most likely, for an X stagger amount, depending on the enemy's staggerability (or a fixed one), the animation speed is slowed by X \* k. This would look linear, and not very good. The next step is to make it additive, as well as having a curve. As long as we follow the added curve having an area similar to that of X \* k, it should be fine.
+## Stagger System?
+What if the stagger system was progressive?
+Stagger (only slows down animation speed, maybe accuracy) -> Interrupt (can reverse animation speed) -> Canceled (animation has been cancelled? maybe stun? maybe switch to a different one while locking this one out.) -> Stunned (can't do anything)
